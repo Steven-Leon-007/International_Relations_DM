@@ -1,0 +1,131 @@
+{
+  "nodes": [
+    {
+      "id": "USA",
+      "code": "us",
+      "lat": 38.0,
+      "lon": -97.0
+    },
+    {
+      "id": "China",
+      "code": "cn",
+      "lat": 35.8617,
+      "lon": 104.1954
+    },
+    {
+      "id": "Russia",
+      "code": "ru",
+      "lat": 61.5240,
+      "lon": 105.3188
+    },
+    {
+      "id": "Germany",
+      "code": "de",
+      "lat": 51.1657,
+      "lon": 10.4515
+    },
+    {
+      "id": "France",
+      "code": "fr",
+      "lat": 46.6034,
+      "lon": 1.8883
+    },
+    {
+      "id": "Brazil",
+      "code": "br",
+      "lat": -14.235,
+      "lon": -51.9253
+    },
+    {
+      "id": "India",
+      "code": "in",
+      "lat": 20.5937,
+      "lon": 78.9629
+    },
+    {
+      "id": "South Africa",
+      "code": "za",
+      "lat": -30.5595,
+      "lon": 22.9375
+    },
+    {
+      "id": "UK",
+      "code": "gb",
+      "lat": 55.3781,
+      "lon": -3.4360
+    },
+    {
+      "id": "Japan",
+      "code": "jp",
+      "lat": 36.2048,
+      "lon": 138.2529
+    }
+  ],
+  "links": [
+    {
+      "source": "USA",
+      "target": "UK",
+      "weight": 9
+    },
+    {
+      "source": "USA",
+      "target": "Germany",
+      "weight": 7
+    },
+    {
+      "source": "USA",
+      "target": "Japan",
+      "weight": 8
+    },
+    {
+      "source": "USA",
+      "target": "China",
+      "weight": -5
+    },
+    {
+      "source": "China",
+      "target": "Russia",
+      "weight": 8
+    },
+    {
+      "source": "China",
+      "target": "India",
+      "weight": 3
+    },
+    {
+      "source": "Germany",
+      "target": "France",
+      "weight": 9
+    },
+    {
+      "source": "France",
+      "target": "UK",
+      "weight": 7
+    },
+    {
+      "source": "Russia",
+      "target": "India",
+      "weight": 5
+    },
+    {
+      "source": "Brazil",
+      "target": "South Africa",
+      "weight": 6
+    },
+    {
+      "source": "Brazil",
+      "target": "USA",
+      "weight": 4
+    },
+    {
+      "source": "India",
+      "target": "South Africa",
+      "weight": 3
+    },
+    {
+      "source": "Japan",
+      "target": "China",
+      "weight": -2
+    }
+  ]
+}
