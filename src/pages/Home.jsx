@@ -4,7 +4,7 @@ import GraphView from '../components/GraphView/GraphView';
 
 const Home = () => {
   return (
-    <div>
+    <div className='home'>
         <GraphView />
     </div>
   )
