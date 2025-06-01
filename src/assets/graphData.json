@@ -3,128 +3,148 @@
     {
       "id": "USA",
       "code": "us",
-      "lat": 40.285685,
-      "lon": -101.887763
+      "position": {
+        "lat": 40.285685,
+        "lng": -101.887763
+      }
     },
     {
       "id": "China",
       "code": "cn",
-      "lat": 35.8617,
-      "lon": 104.1954
+      "position": {
+        "lat": 35.8617,
+        "lng": 104.1954
+      }
     },
     {
       "id": "Russia",
       "code": "ru",
-      "lat": 61.5240,
-      "lon": 105.3188
+      "position": {
+        "lat": 61.524,
+        "lng": 105.3188
+      }
     },
     {
       "id": "Germany",
       "code": "de",
-      "lat": 51.1657,
-      "lon": 10.4515
+      "position": {
+        "lat": 51.1657,
+        "lng": 10.4515
+      }
     },
     {
       "id": "France",
       "code": "fr",
-      "lat": 46.6034,
-      "lon": 1.8883
+      "position": {
+        "lat": 46.6034,
+        "lng": 1.8883
+      }
     },
     {
       "id": "Brazil",
       "code": "br",
-      "lat": -14.235,
-      "lon": -51.9253
+      "position": {
+        "lat": -14.235,
+        "lng": -51.9253
+      }
     },
     {
       "id": "India",
       "code": "in",
-      "lat": 20.5937,
-      "lon": 78.9629
+      "position": {
+        "lat": 20.5937,
+        "lng": 78.9629
+      }
     },
     {
       "id": "South Africa",
       "code": "za",
-      "lat": -30.5595,
-      "lon": 22.9375
+      "position": {
+        "lat": -30.5595,
+        "lng": 22.9375
+      }
     },
     {
       "id": "UK",
       "code": "gb",
-      "lat": 55.3781,
-      "lon": -3.4360
+      "position": {
+        "lat": 55.3781,
+        "lng": -3.436
+      }
     },
     {
       "id": "Japan",
       "code": "jp",
-      "lat": 30.2048,
-      "lon": 138.2529
+      "position": {
+        "lat": 35.721666,
+        "lng": 139.647466
+      }
     }
   ],
-  "links": [
+  "edges": [
     {
-      "source": "USA",
-      "target": "UK",
+      "from": "USA",
+      "to": "UK",
       "weight": 9
     },
     {
-      "source": "USA",
-      "target": "Germany",
+      "from": "USA",
+      "to": "Germany",
       "weight": 7
     },
     {
-      "source": "USA",
-      "target": "Japan",
+      "from": "USA",
+      "to": "Japan",
       "weight": 8
     },
     {
-      "source": "USA",
-      "target": "China",
+      "from": "USA",
+      "to": "China",
       "weight": -5
     },
     {
-      "source": "China",
-      "target": "Russia",
+      "from": "China",
+      "to": "Russia",
       "weight": 8
     },
     {
-      "source": "China",
-      "target": "India",
+      "from": "China",
+      "to": "India",
       "weight": 3
     },
     {
-      "source": "Germany",
-      "target": "France",
+      "from": "Germany",
+      "to": "France",
       "weight": 9
     },
     {
-      "source": "France",
-      "target": "UK",
+      "from": "France",
+      "to": "UK",
       "weight": 7
     },
     {
-      "source": "Russia",
-      "target": "India",
+      "from": "Russia",
+      "to": "India",
       "weight": 5
     },
     {
-      "source": "Brazil",
-      "target": "South Africa",
+      "from": "Brazil",
+      "to": "South Africa",
       "weight": 6
     },
     {
-      "source": "Brazil",
-      "target": "USA",
+      "from": "Brazil",
+      "to": "USA",
       "weight": 4
     },
     {
-      "source": "India",
-      "target": "South Africa",
+      "from": "India",
+      "to": "South Africa",
       "weight": 3
     },
     {
-      "source": "Japan",
-      "target": "China",
+      "from": "Japan",
+      "to": "China",
       "weight": -2
     }
   ]
