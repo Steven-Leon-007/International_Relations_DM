@@ -5,6 +5,7 @@ import graphData from "../../assets/graphData.json";
 import RelatedCountriesModal from "../RelatedCountriesModal/RelatedCountriesModal";
 import RelationWeightModal from "../RelationWeightModal/RelationWeightModal";
 import "./GraphView.css";
+import PropagationModal from "../PropagationModal/PropagationModal";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -33,8 +34,9 @@ const GraphMap = () => {
   const [selectedNode, setSelectedNode] = useState(null);
   const [focusedNode, setFocusedNode] = useState(null);
   const [selectedEdge, setSelectedEdge] = useState(null);
-  const [hoveringEdge, setHoveringEdge] = useState(false);
   const [weightValue, setWeightValue] = useState(0);
+  const [propagatedChanges, setPropagatedChanges] = useState([]);
+  const [showPropagationModal, setShowPropagationModal] = useState(false);
 
   const { nodes } = graphData;
 
@@ -66,6 +68,13 @@ const GraphMap = () => {
     const toNode = nodes.find((n) => n.id === edge.to);
     return [fromNode, toNode].filter(Boolean);
   };
+
+  useEffect(() => {
+    if (selectedEdge) {
+      setWeightValue(selectedEdge.weight);
+    }
+  }, [selectedEdge]);
+
 
 
   const lineFeatures = displayedEdges
@@ -213,18 +222,109 @@ const GraphMap = () => {
           onChange={setWeightValue}
           onClose={() => setSelectedEdge(null)}
           onSave={() => {
-            setEdges(prev =>
-              prev.map(e =>
-                e.from === selectedEdge.from && e.to === selectedEdge.to
-                  ? { ...e, weight: weightValue }
-                  : e
-              )
-            );
+            const { from, to } = selectedEdge;
+
+            setEdges(prevEdges => {
+              const propagated = [];
+              // Obtener peso anterior
+              const oldEdge = prevEdges.find(e => e.from === from && e.to === to);
+              const oldWeight = oldEdge?.weight ?? 0;
+
+              // Actualizar la arista seleccionada
+              const updatedEdges = prevEdges.map(e =>
+                e.from === from && e.to === to ? { ...e, weight: weightValue } : e
+              );
+
+              const getEdgeWeight = (a, b) => {
+                const edge = updatedEdges.find(e =>
+                  (e.from === a && e.to === b) || (e.from === b && e.to === a)
+                );
+                return edge?.weight ?? null;
+              };
+
+              const thirdCountries = new Set();
+              updatedEdges.forEach(e => {
+                if (e.from === from || e.to === from || e.from === to || e.to === to) {
+                  const other = e.from === from || e.from === to ? e.to : e.from;
+                  if (other !== from && other !== to) {
+                    thirdCountries.add(other);
+                  }
+                }
+              });
+
+              const improved = weightValue > oldWeight;
+
+              const extraAdjustedEdges = updatedEdges.map(e => {
+                // Solo relaciones que conecten a un país involucrado (from/to) con un tercero
+                const isFromRelated = (e.from === from && e.to !== to && e.to !== from);
+                const isToRelated = (e.to === to && e.from !== from && e.from !== to);
+                const isToFromRelated = (e.to === from && e.from !== from && e.from !== to);
+                const isFromToRelated = (e.from === to && e.to !== from && e.to !== to);
+
+                if (!(isFromRelated || isToRelated || isToFromRelated || isFromToRelated)) return e;
+
+                const third = [e.from, e.to].find(c => c !== from && c !== to);
+                const weightWithFrom = getEdgeWeight(third, from);
+                const weightWithTo = getEdgeWeight(third, to);
+
+                if (weightWithFrom == null || weightWithTo == null) return e;
+
+                const avg = (weightWithFrom + weightWithTo) / 2;
+
+                let delta = 0;
+                if (improved) {
+                  if (avg > 4) delta = 1;
+                  else if (avg < -4) delta = -1;
+                } else {
+                  if (avg > 4) delta = -1;
+                  else if (avg < -4) delta = 1;
+                }
+
+                if (delta === 0) return e;
+
+                const newWeight = Math.max(-10, Math.min(10, e.weight + delta));
+
+                propagated.push({
+                  from: e.from,
+                  to: e.to,
+                  oldWeight: e.weight,
+                  newWeight: newWeight
+                });
+
+                return { ...e, weight: newWeight };
+              });
+              setPropagatedChanges(prev => {
+                const unique = [...prev, ...propagated].filter(
+                  (item, index, self) =>
+                    index === self.findIndex(
+                      t =>
+                        t.from === item.from &&
+                        t.to === item.to &&
+                        t.oldWeight === item.oldWeight &&
+                        t.newWeight === item.newWeight
+                    )
+                );
+                return unique;
+              });
+              setShowPropagationModal(true);
+
+              return extraAdjustedEdges;
+            });
+
             setSelectedEdge(null);
           }}
           countries={getNodesFromEdge(selectedEdge)}
         />
 
+      )}
+
+      {showPropagationModal && (
+        <PropagationModal
+          visible={showPropagationModal}
+          changes={propagatedChanges}
+          onClose={() => { setShowPropagationModal(false); setPropagatedChanges([]) }}
+          nodes={graphData.nodes}
+        />
       )}
 
     </>

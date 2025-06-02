@@ -95,6 +95,134 @@
         "lat": 39.020234,
         "lng": 125.751862
       }
+    },
+    {
+      "id": "México",
+      "code": "mx",
+      "position": {
+        "lat": 23.6345,
+        "lng": -102.5528
+      }
+    },
+    {
+      "id": "Canadá",
+      "code": "ca",
+      "position": {
+        "lat": 56.1304,
+        "lng": -106.3468
+      }
+    },
+    {
+      "id": "Nueva Zelanda",
+      "code": "nz",
+      "position": {
+        "lat": -40.9006,
+        "lng": 174.886
+      }
+    },
+    {
+      "id": "Emiratos Árabes",
+      "code": "ae",
+      "position": {
+        "lat": 23.4241,
+        "lng": 53.8478
+      }
+    },
+    {
+      "id": "Ucrania",
+      "code": "ua",
+      "position": {
+        "lat": 48.3794,
+        "lng": 31.1656
+      }
+    },
+    {
+      "id": "Tailandia",
+      "code": "th",
+      "position": {
+        "lat": 15.8700,
+        "lng": 100.9925
+      }
+    },
+    {
+      "id": "Uganda",
+      "code": "ug",
+      "position": {
+        "lat": 1.3733,
+        "lng": 32.2903
+      }
+    },
+    {
+      "id": "Irán",
+      "code": "ir",
+      "position": {
+        "lat": 32.4279,
+        "lng": 53.688
+      }
+    },
+    {
+      "id": "Israel",
+      "code": "il",
+      "position": {
+        "lat": 31.0461,
+        "lng": 34.8516
+      }
+    },
+    {
+      "id": "Corea del Sur",
+      "code": "kr",
+      "position": {
+        "lat": 35.9078,
+        "lng": 127.7669
+      }
+    },
+    {
+      "id": "Turquía",
+      "code": "tr",
+      "position": {
+        "lat": 38.9637,
+        "lng": 35.2433
+      }
+    },
+    {
+      "id": "Perú",
+      "code": "pe",
+      "position": {
+        "lat": -9.1900,
+        "lng": -76.0152
+      }
+    },
+    {
+      "id": "Indonesia",
+      "code": "id",
+      "position": {
+        "lat": -0.7893,
+        "lng": 113.9213
+      }
+    },
+    {
+      "id": "Italia",
+      "code": "it",
+      "position": {
+        "lat": 41.8719,
+        "lng": 12.5674
+      }
+    },
+    {
+      "id": "Islandia",
+      "code": "is",
+      "position": {
+        "lat": 64.9631,
+        "lng": -19.0208
+      }
+    },
+    {
+      "id": "Senegal",
+      "code": "sn",
+      "position": {
+        "lat": 14.4974,
+        "lng": -14.4524
+      }
     }
   ],
   "edges": [
@@ -121,7 +249,7 @@
     {
       "from": "Estados Unidos",
       "to": "Corea del Norte",
-      "weight": -8
+      "weight": -10
     },
     {
       "from": "China",
@@ -142,6 +270,11 @@
       "from": "Francia",
       "to": "Reino Unido",
       "weight": 7
+    },
+    {
+      "from": "Reino Unido",
+      "to": "Alemania",
+      "weight": 6
     },
     {
       "from": "Rusia",
@@ -182,6 +315,286 @@
       "from": "Corea del Norte",
       "to": "China",
       "weight": 8
+    },
+    {
+      "from": "Corea del Norte",
+      "to": "Rusia",
+      "weight": 8
+    },
+    {
+      "from": "México",
+      "to": "Estados Unidos",
+      "weight": 7
+    },
+    {
+      "from": "Canadá",
+      "to": "Estados Unidos",
+      "weight": 10
+    },
+    {
+      "from": "Canadá",
+      "to": "Reino Unido",
+      "weight": 7
+    },
+    {
+      "from": "Nueva Zelanda",
+      "to": "Reino Unido",
+      "weight": 6
+    },
+    {
+      "from": "Nueva Zelanda",
+      "to": "Colombia",
+      "weight": 7
+    },
+    {
+      "from": "Nueva Zelanda",
+      "to": "Japón",
+      "weight": 4
+    },
+    {
+      "from": "Emiratos Árabes",
+      "to": "India",
+      "weight": 6
+    },
+    {
+      "from": "Emiratos Árabes",
+      "to": "China",
+      "weight": 3
+    },
+    {
+      "from": "Ucrania",
+      "to": "Rusia",
+      "weight": -10
+    },
+    {
+      "from": "Ucrania",
+      "to": "Estados Unidos",
+      "weight": 6
+    },
+    {
+      "from": "Ucrania",
+      "to": "Alemania",
+      "weight": 7
+    },
+    {
+      "from": "Tailandia",
+      "to": "China",
+      "weight": 5
+    },
+    {
+      "from": "Tailandia",
+      "to": "India",
+      "weight": 4
+    },
+    {
+      "from": "Uganda",
+      "to": "Sudáfrica",
+      "weight": 4
+    },
+    {
+      "from": "Uganda",
+      "to": "India",
+      "weight": 3
+    },
+    {
+      "from": "Irán",
+      "to": "Emiratos Árabes",
+      "weight": -6
+    },
+    {
+      "from": "Irán",
+      "to": "Rusia",
+      "weight": 5
+    },
+    {
+      "from": "Israel",
+      "to": "Estados Unidos",
+      "weight": 9
+    },
+    {
+      "from": "Israel",
+      "to": "Francia",
+      "weight": 6
+    },
+    {
+      "from": "Corea del Sur",
+      "to": "Estados Unidos",
+      "weight": 8
+    },
+    {
+      "from": "Corea del Sur",
+      "to": "Japón",
+      "weight": 5
+    },
+    {
+      "from": "Turquía",
+      "to": "Alemania",
+      "weight": 7
+    },
+    {
+      "from": "Turquía",
+      "to": "Rusia",
+      "weight": 5
+    },
+    {
+      "from": "Corea del Norte",
+      "to": "Corea del Sur",
+      "weight": -9
+    },
+    {
+      "from": "Corea del Norte",
+      "to": "Japón",
+      "weight": -8
+    },
+    {
+      "from": "Perú",
+      "to": "Estados Unidos",
+      "weight": 7
+    },
+    {
+      "from": "Perú",
+      "to": "Colombia",
+      "weight": 6
+    },
+    {
+      "from": "Perú",
+      "to": "Brasil",
+      "weight": 5
+    },
+    {
+      "from": "Perú",
+      "to": "México",
+      "weight": 4
+    },
+    {
+      "from": "Colombia",
+      "to": "México",
+      "weight": 8
+    },
+    {
+      "from": "Colombia",
+      "to": "Brasil",
+      "weight": 7
+    },
+    {
+      "from": "Estados Unidos",
+      "to": "Nueva Zelanda",
+      "weight": 7
+    },
+    {
+      "from": "Irán",
+      "to": "Corea del Norte",
+      "weight": 5
+    },
+    {
+      "from": "Irán",
+      "to": "China",
+      "weight": 6
+    },
+    {
+      "from": "Indonesia",
+      "to": "China",
+      "weight": 5
+    },
+    {
+      "from": "Indonesia",
+      "to": "India",
+      "weight": 4
+    },
+    {
+      "from": "Indonesia",
+      "to": "Estados Unidos",
+      "weight": 4
+    },
+    {
+      "from": "Indonesia",
+      "to": "Tailandia",
+      "weight": 5
+    },
+    {
+      "from": "Italia",
+      "to": "Francia",
+      "weight": 7
+    },
+    {
+      "from": "Italia",
+      "to": "Alemania",
+      "weight": 6
+    },
+    {
+      "from": "Italia",
+      "to": "Reino Unido",
+      "weight": 5
+    },
+    {
+      "from": "Italia",
+      "to": "Estados Unidos",
+      "weight": 6
+    },
+    {
+      "from": "Italia",
+      "to": "Ucrania",
+      "weight": 7
+    },
+    {
+      "from": "Rusia",
+      "to": "Reino Unido",
+      "weight": -4
+    },
+    {
+      "from": "Rusia",
+      "to": "Alemania",
+      "weight": -3
+    },
+    {
+      "from": "Turquía",
+      "to": "Ucrania",
+      "weight": 6
+    },
+    {
+      "from": "Perú",
+      "to": "China",
+      "weight": 5
+    },
+    {
+      "from": "Colombia",
+      "to": "China",
+      "weight": 6
+    },
+    {
+      "from": "Brasil",
+      "to": "China",
+      "weight": 6
+    },
+    {
+      "from": "Islandia",
+      "to": "Reino Unido",
+      "weight": 6
+    },
+    {
+      "from": "Islandia",
+      "to": "Alemania",
+      "weight": 5
+    },
+    {
+      "from": "Islandia",
+      "to": "Estados Unidos",
+      "weight": 7
+    },
+    {
+      "from": "Senegal",
+      "to": "Francia",
+      "weight": 8
+    },
+    {
+      "from": "Senegal",
+      "to": "Brasil",
+      "weight": 4
+    },
+    {
+      "from": "Senegal",
+      "to": "Sudáfrica",
+      "weight": 5
     }
   ]
 }

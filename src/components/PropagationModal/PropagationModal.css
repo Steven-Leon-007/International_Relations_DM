@@ -1,0 +1,52 @@
+.change-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.change-list li {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.change-list .flags-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.weight-change {
+    width: 40%;
+    text-align: left;
+}
+
+
+.flags-display .country-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.country-info span {
+    font-size: 0.8rem;
+}
+
+.modal-content .close-button {
+    border: none;
+    width: 50%;
+    padding: 1rem 0;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+    background-color: #aa2322;
+}
+
+.modal-content .close-button:hover{
+  background-color: #ce2222;
+}
