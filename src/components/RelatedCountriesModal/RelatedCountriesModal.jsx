@@ -1,15 +1,25 @@
 import React from 'react';
+import graphData from '../../assets/graphData.json';
 import './RelatedCountriesModal.css';
 
-const RelatedCountriesModal = ({ visible, countries, onClose, onShowOnMap, selectedCountry }) => {
-  if (!visible) return null;  
-  
+const RelatedCountriesModal = ({ visible, node, onClose }) => {
+  if (!visible || !node) return null;
+
+  const { nodes, edges } = graphData;
+
+  const relatedEdges = edges.filter(edge => edge.from === node.id || edge.to === node.id);
+
+  const relatedCountries = relatedEdges.map(edge => {
+    const otherId = edge.from === node.id ? edge.to : edge.from;
+    return nodes.find(n => n.id === otherId);
+  }).filter(Boolean);
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <h3>Países relacionados</h3>
+        <h3>Países relacionados con {node.id}</h3>
         <ul className="countries-list">
-          {countries.filter(country => country.id!=selectedCountry).map(country => (
+          {relatedCountries.map(country => (
             <li key={country.id} className="country-item">
               <img
                 src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
@@ -22,10 +32,6 @@ const RelatedCountriesModal = ({ visible, countries, onClose, onShowOnMap, selec
         </ul>
         <div className='btn-container'>
           <button onClick={onClose} className="btn">Cerrar</button>
-          <button onClick={() => {
-              onClose();    
-              onShowOnMap();
-            }} className="btn">Ver en el mapa</button>
         </div>
       </div>
     </div>

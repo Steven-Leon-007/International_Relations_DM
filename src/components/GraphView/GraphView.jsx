@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import graphData from "../../assets/graphData.json";
-import mapStyles from "../../assets/mapStyles.json";
+import RelatedCountriesModal from "../RelatedCountriesModal/RelatedCountriesModal";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -19,7 +19,7 @@ function getColorByWeight(weight) {
   return "#999999";
 }
 
-function GraphMap() {
+const GraphMap = () => {
   const mapRef = useRef(null);
   const [viewport, setViewport] = useState({
     latitude: center.lat,
@@ -27,9 +27,17 @@ function GraphMap() {
     zoom: 2,
   });
 
+  const [selectedNode, setSelectedNode] = useState(null);
+
+
   const { nodes, edges } = graphData;
 
-  // Construir las líneas como una FeatureCollection
+
+  function handleNodeClick(nodeId) {
+    const node = nodes.find(n => n.id === nodeId);
+    setSelectedNode(node);
+  }
+
   const lineFeatures = edges
     .map(({ from, to, weight }) => {
       const fromNode = nodes.find((n) => n.id === from);
@@ -70,40 +78,58 @@ function GraphMap() {
   };
 
   return (
-    <Map
-      ref={mapRef}
-      initialViewState={viewport}
-      mapboxAccessToken={MAPBOX_TOKEN}
-      mapStyle="mapbox://styles/mapbox/dark-v11"
-      renderWorldCopies={false}
-      minZoom={2}
-      maxZoom={8}
-    >
-      {/* Renderizar nodos */}
-      {nodes.map(({ id, position }) => (
-        <Marker
-          key={id}
-          longitude={position.lng}
-          latitude={position.lat}
-          anchor="center"
-        >
-          <div
-            style={{
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              backgroundColor: "#ffffff",
-              border: "2px solid #000000",
-            }}
-          />
-        </Marker>
-      ))}
+    <>
+      <Map
+        ref={mapRef}
+        initialViewState={viewport}
+        mapboxAccessToken={MAPBOX_TOKEN}
+        mapStyle="mapbox://styles/mapbox/dark-v11"
+        renderWorldCopies={false}
+        minZoom={2}
+        maxZoom={8}
+      >
+        {/* Renderizar nodos */}
+        {nodes.map(({ id, position, code }) => (
+          <Marker
+            key={id}
+            longitude={position.lng}
+            latitude={position.lat}
+            anchor="center"
+          >
+            <div
+              onClick={() => handleNodeClick(id)}
+              style={{
+                cursor: "pointer",
+                display: "inline-block",
+              }}
+            >
+              <img
+                src={`https://flagcdn.com/w40/${code.toLowerCase()}.png`}
+                alt={`${id} flag`}
+                style={{
+                  width: "24px",
+                  height: "18px",
+                  borderRadius: "2px",
+                  boxShadow: "0 0 3px rgba(0, 0, 0, 0.5)",
+                }}
+              />
+            </div>
+          </Marker>
 
-      {/* Renderizar aristas */}
-      <Source id="edges" type="geojson" data={geojson}>
-        <Layer {...lineLayer} />
-      </Source>
-    </Map>
+        ))}
+
+        <Source id="edges" type="geojson" data={geojson}>
+          <Layer {...lineLayer} />
+        </Source>
+      </Map>
+      {selectedNode && (
+        <RelatedCountriesModal
+          visible={!!selectedNode}
+          node={selectedNode}
+          onClose={() => setSelectedNode(null)}
+        />
+      )}
+    </>
   );
 }
 
