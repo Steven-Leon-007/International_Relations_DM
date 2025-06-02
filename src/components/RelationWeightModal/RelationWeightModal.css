@@ -41,9 +41,45 @@ button{
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  width: 40%;
 }
 
 .related-countries .relation-icon{
   width: 1.5rem;
   height: 1.5rem;
 }
+
+.modal-buttons{
+  display: flex;
+  gap: 2rem;
+}
+
+.modal-buttons.node-modal{
+  margin-top: 2rem;
+}
+
+.modal-buttons button{
+  border: none;
+  width: 50%;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal-buttons button:first-child{
+  background-color: #aa2322;
+}
+
+.modal-buttons button:last-child{
+  background-color: #0c7a19;
+}
+
+
+.modal-buttons button:first-child:hover{
+  background-color: #ce2222;
+}
+
+.modal-buttons button:last-child:hover{
+  background-color: #169f26;
+}
+

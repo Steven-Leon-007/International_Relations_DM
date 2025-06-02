@@ -1,7 +1,7 @@
 {
   "nodes": [
     {
-      "id": "USA",
+      "id": "Estados Unidos",
       "code": "us",
       "position": {
         "lat": 40.285685,
@@ -17,7 +17,7 @@
       }
     },
     {
-      "id": "Russia",
+      "id": "Rusia",
       "code": "ru",
       "position": {
         "lat": 61.524,
@@ -25,7 +25,7 @@
       }
     },
     {
-      "id": "Germany",
+      "id": "Alemania",
       "code": "de",
       "position": {
         "lat": 51.1657,
@@ -33,7 +33,7 @@
       }
     },
     {
-      "id": "France",
+      "id": "Francia",
       "code": "fr",
       "position": {
         "lat": 46.6034,
@@ -41,7 +41,7 @@
       }
     },
     {
-      "id": "Brazil",
+      "id": "Brasil",
       "code": "br",
       "position": {
         "lat": -14.235,
@@ -57,7 +57,7 @@
       }
     },
     {
-      "id": "South Africa",
+      "id": "Sudáfrica",
       "code": "za",
       "position": {
         "lat": -30.5595,
@@ -65,7 +65,7 @@
       }
     },
     {
-      "id": "UK",
+      "id": "Reino Unido",
       "code": "gb",
       "position": {
         "lat": 55.3781,
@@ -73,7 +73,7 @@
       }
     },
     {
-      "id": "Japan",
+      "id": "Japón",
       "code": "jp",
       "position": {
         "lat": 35.721666,
@@ -89,7 +89,7 @@
       }
     },
     {
-      "id": "North Korea",
+      "id": "Corea del Norte",
       "code": "KP",
       "position": {
         "lat": 39.020234,
@@ -99,33 +99,33 @@
   ],
   "edges": [
     {
-      "from": "USA",
-      "to": "UK",
+      "from": "Estados Unidos",
+      "to": "Reino Unido",
       "weight": 9
     },
     {
-      "from": "USA",
-      "to": "Germany",
+      "from": "Estados Unidos",
+      "to": "Alemania",
       "weight": 7
     },
     {
-      "from": "USA",
-      "to": "Japan",
+      "from": "Estados Unidos",
+      "to": "Japón",
       "weight": 8
     },
     {
-      "from": "USA",
+      "from": "Estados Unidos",
       "to": "China",
       "weight": -5
     },
     {
-      "from": "USA",
-      "to": "North Korea",
+      "from": "Estados Unidos",
+      "to": "Corea del Norte",
       "weight": -8
     },
     {
       "from": "China",
-      "to": "Russia",
+      "to": "Rusia",
       "weight": 8
     },
     {
@@ -134,52 +134,52 @@
       "weight": 3
     },
     {
-      "from": "Germany",
-      "to": "France",
+      "from": "Alemania",
+      "to": "Francia",
       "weight": 9
     },
     {
-      "from": "France",
-      "to": "UK",
+      "from": "Francia",
+      "to": "Reino Unido",
       "weight": 7
     },
     {
-      "from": "Russia",
+      "from": "Rusia",
       "to": "India",
       "weight": 5
     },
     {
-      "from": "Brazil",
-      "to": "South Africa",
+      "from": "Brasil",
+      "to": "Sudáfrica",
       "weight": 6
     },
     {
-      "from": "Brazil",
-      "to": "USA",
+      "from": "Brasil",
+      "to": "Estados Unidos",
       "weight": 4
     },
     {
       "from": "India",
-      "to": "South Africa",
+      "to": "Sudáfrica",
       "weight": 3
     },
     {
-      "from": "Japan",
+      "from": "Japón",
       "to": "China",
       "weight": -2
     },
     {
       "from": "Colombia",
-      "to": "North Korea",
+      "to": "Corea del Norte",
       "weight": 1
     },
     {
       "from": "Colombia",
-      "to": "USA",
+      "to": "Estados Unidos",
       "weight": 7
     },
     {
-      "from": "North Korea",
+      "from": "Corea del Norte",
       "to": "China",
       "weight": 8
     }

@@ -30,9 +30,9 @@ const RelatedCountriesModal = ({ visible, node, onClose, onViewOnMap }) => {
             </li>
           ))}
         </ul>
-        <div className='btn-container'>
-          <button onClick={onClose} className="btn">Cerrar</button>
-          <button onClick={() => onViewOnMap(node)} className="btn btn-view">Ver en mapa</button>
+        <div className='modal-buttons node-modal'>
+          <button onClick={onClose}>Cerrar</button>
+          <button onClick={() => onViewOnMap(node)}>Ver en el mapa</button>
         </div>
       </div>
     </div>

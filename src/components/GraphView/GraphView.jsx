@@ -14,7 +14,7 @@ const center = {
 };
 
 function getColorByWeight(weight) {
-  if (weight > 7) return "#00cc66";
+  if (weight >= 7) return "#00cc66";
   if (weight > 4) return "#ffcc00";
   if (weight > 0) return "#ff9900";
   if (weight < 0) return "#cc0000";
@@ -201,7 +201,7 @@ const GraphMap = () => {
       {focusedNode && (
         <div style={{ position: "absolute", top: 10, left: 20, zIndex: 1 }}>
           <button onClick={() => setFocusedNode(null)} className="btn">
-            Ver todo el mapa
+            Regresar
           </button>
         </div>
       )}
