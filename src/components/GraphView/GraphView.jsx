@@ -29,7 +29,9 @@ const GraphMap = () => {
     zoom: 2,
   });
 
+  //states
   const [selectedNode, setSelectedNode] = useState(null);
+  const [focusedNode, setFocusedNode] = useState(null);
   const [selectedEdge, setSelectedEdge] = useState(null);
   const [hoveringEdge, setHoveringEdge] = useState(false);
   const [weightValue, setWeightValue] = useState(0);
@@ -37,6 +39,21 @@ const GraphMap = () => {
   const { nodes } = graphData;
 
   const [edges, setEdges] = useState(graphData.edges);
+
+  let displayedNodes = nodes;
+  let displayedEdges = edges;
+
+  if (focusedNode) {
+    const relatedEdges = edges.filter(
+      edge => edge.from === focusedNode.id || edge.to === focusedNode.id
+    );
+    const relatedNodeIds = new Set(
+      relatedEdges.flatMap(edge => [edge.from, edge.to])
+    );
+
+    displayedNodes = nodes.filter(n => relatedNodeIds.has(n.id));
+    displayedEdges = relatedEdges;
+  }
 
   function handleNodeClick(nodeId) {
     const node = nodes.find(n => n.id === nodeId);
@@ -51,7 +68,7 @@ const GraphMap = () => {
   };
 
 
-  const lineFeatures = edges
+  const lineFeatures = displayedEdges
     .map(({ from, to, weight }) => {
       const fromNode = nodes.find((n) => n.id === from);
       const toNode = nodes.find((n) => n.id === to);
@@ -91,6 +108,10 @@ const GraphMap = () => {
     },
   };
 
+  function handleViewOnMap(node) {
+    setFocusedNode(node);       // guardar nodo central
+    setSelectedNode(null);      // cerrar el modal
+  }
   return (
     <>
       <Map
@@ -130,7 +151,7 @@ const GraphMap = () => {
         }}
       >
         {/* Renderizar nodos */}
-        {nodes.map(({ id, position, code }) => (
+        {displayedNodes.map(({ id, position, code }) => (
           <Marker
             key={id}
             longitude={position.lng}
@@ -173,7 +194,16 @@ const GraphMap = () => {
           visible={!!selectedNode}
           node={selectedNode}
           onClose={() => setSelectedNode(null)}
+          onViewOnMap={handleViewOnMap}
         />
+      )}
+
+      {focusedNode && (
+        <div style={{ position: "absolute", top: 10, left: 20, zIndex: 1 }}>
+          <button onClick={() => setFocusedNode(null)} className="btn">
+            Ver todo el mapa
+          </button>
+        </div>
       )}
 
       {selectedEdge && (

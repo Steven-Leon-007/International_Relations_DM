@@ -2,7 +2,7 @@ import React from 'react';
 import graphData from '../../assets/graphData.json';
 import './RelatedCountriesModal.css';
 
-const RelatedCountriesModal = ({ visible, node, onClose }) => {
+const RelatedCountriesModal = ({ visible, node, onClose, onViewOnMap }) => {
   if (!visible || !node) return null;
 
   const { nodes, edges } = graphData;
@@ -32,6 +32,7 @@ const RelatedCountriesModal = ({ visible, node, onClose }) => {
         </ul>
         <div className='btn-container'>
           <button onClick={onClose} className="btn">Cerrar</button>
+          <button onClick={() => onViewOnMap(node)} className="btn btn-view">Ver en mapa</button>
         </div>
       </div>
     </div>
