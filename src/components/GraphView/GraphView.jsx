@@ -3,6 +3,8 @@ import Map, { Marker, Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import graphData from "../../assets/graphData.json";
 import RelatedCountriesModal from "../RelatedCountriesModal/RelatedCountriesModal";
+import RelationWeightModal from "../RelationWeightModal/RelationWeightModal";
+import "./GraphView.css";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -28,15 +30,26 @@ const GraphMap = () => {
   });
 
   const [selectedNode, setSelectedNode] = useState(null);
+  const [selectedEdge, setSelectedEdge] = useState(null);
+  const [hoveringEdge, setHoveringEdge] = useState(false);
+  const [weightValue, setWeightValue] = useState(0);
 
+  const { nodes } = graphData;
 
-  const { nodes, edges } = graphData;
-
+  const [edges, setEdges] = useState(graphData.edges);
 
   function handleNodeClick(nodeId) {
     const node = nodes.find(n => n.id === nodeId);
     setSelectedNode(node);
   }
+
+  const getNodesFromEdge = (edge) => {
+    if (!edge) return [];
+    const fromNode = nodes.find((n) => n.id === edge.from);
+    const toNode = nodes.find((n) => n.id === edge.to);
+    return [fromNode, toNode].filter(Boolean);
+  };
+
 
   const lineFeatures = edges
     .map(({ from, to, weight }) => {
@@ -56,6 +69,7 @@ const GraphMap = () => {
         properties: {
           weight,
           color: getColorByWeight(weight),
+          edgeId: `${from}-${to}`
         },
       };
     })
@@ -72,7 +86,7 @@ const GraphMap = () => {
     source: "edges",
     paint: {
       "line-color": ["get", "color"],
-      "line-width": 2,
+      "line-width": 3.5,
       "line-opacity": 0.8,
     },
   };
@@ -86,7 +100,34 @@ const GraphMap = () => {
         mapStyle="mapbox://styles/mapbox/dark-v11"
         renderWorldCopies={false}
         minZoom={2}
-        maxZoom={8}
+        maxZoom={12}
+        interactiveLayerIds={['edges']}
+
+        onMouseMove={(event) => {
+          const features = event.target.queryRenderedFeatures(event.point, {
+            layers: ['edges']
+          });
+
+          if (features.length > 0) {
+            event.target.getCanvas().style.cursor = 'pointer';
+          } else {
+            event.target.getCanvas().style.cursor = '';
+          }
+        }}
+        onMouseLeave={() => {
+          mapRef.current.getCanvas().style.cursor = '';
+        }}
+
+        onClick={(event) => {
+          const feature = event.features?.[0];
+          if (feature?.layer?.id === 'edges') {
+            const { edgeId } = feature.properties;
+            const edge = edges.find(e => `${e.from}-${e.to}` === edgeId);
+            if (edge) {
+              setSelectedEdge(edge);
+            }
+          }
+        }}
       >
         {/* Renderizar nodos */}
         {nodes.map(({ id, position, code }) => (
@@ -97,7 +138,10 @@ const GraphMap = () => {
             anchor="center"
           >
             <div
-              onClick={() => handleNodeClick(id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNodeClick(id);
+              }}
               style={{
                 cursor: "pointer",
                 display: "inline-block",
@@ -112,6 +156,7 @@ const GraphMap = () => {
                   borderRadius: "2px",
                   boxShadow: "0 0 3px rgba(0, 0, 0, 0.5)",
                 }}
+                className="country-flag"
               />
             </div>
           </Marker>
@@ -122,6 +167,7 @@ const GraphMap = () => {
           <Layer {...lineLayer} />
         </Source>
       </Map>
+
       {selectedNode && (
         <RelatedCountriesModal
           visible={!!selectedNode}
@@ -129,6 +175,28 @@ const GraphMap = () => {
           onClose={() => setSelectedNode(null)}
         />
       )}
+
+      {selectedEdge && (
+        <RelationWeightModal
+          visible={!!selectedEdge}
+          value={weightValue}
+          onChange={setWeightValue}
+          onClose={() => setSelectedEdge(null)}
+          onSave={() => {
+            setEdges(prev =>
+              prev.map(e =>
+                e.from === selectedEdge.from && e.to === selectedEdge.to
+                  ? { ...e, weight: weightValue }
+                  : e
+              )
+            );
+            setSelectedEdge(null);
+          }}
+          countries={getNodesFromEdge(selectedEdge)}
+        />
+
+      )}
+
     </>
   );
 }
