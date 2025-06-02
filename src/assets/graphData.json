@@ -79,6 +79,22 @@
         "lat": 35.721666,
         "lng": 139.647466
       }
+    },
+    {
+      "id": "Colombia",
+      "code": "CO",
+      "position": {
+        "lat": 5.526412,
+        "lng": -73.369866
+      }
+    },
+    {
+      "id": "North Korea",
+      "code": "KP",
+      "position": {
+        "lat": 39.020234,
+        "lng": 125.751862
+      }
     }
   ],
   "edges": [
@@ -101,6 +117,11 @@
       "from": "USA",
       "to": "China",
       "weight": -5
+    },
+    {
+      "from": "USA",
+      "to": "North Korea",
+      "weight": -8
     },
     {
       "from": "China",
@@ -146,6 +167,21 @@
       "from": "Japan",
       "to": "China",
       "weight": -2
+    },
+    {
+      "from": "Colombia",
+      "to": "North Korea",
+      "weight": 1
+    },
+    {
+      "from": "Colombia",
+      "to": "USA",
+      "weight": 7
+    },
+    {
+      "from": "North Korea",
+      "to": "China",
+      "weight": 8
     }
   ]
 }
