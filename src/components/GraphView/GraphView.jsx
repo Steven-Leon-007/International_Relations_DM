@@ -27,39 +27,54 @@ const GraphMap = () => {
     zoom: 2,
   });
 
+  //states
   const [selectedNode, setSelectedNode] = useState(null);
-
+  const [focusedNode, setFocusedNode] = useState(null);
 
   const { nodes, edges } = graphData;
 
+  let displayedNodes = nodes;
+  let displayedEdges = edges;
+
+  if (focusedNode) {
+    const relatedEdges = edges.filter(
+      edge => edge.from === focusedNode.id || edge.to === focusedNode.id
+    );
+    const relatedNodeIds = new Set(
+      relatedEdges.flatMap(edge => [edge.from, edge.to])
+    );
+
+    displayedNodes = nodes.filter(n => relatedNodeIds.has(n.id));
+    displayedEdges = relatedEdges;
+  }
 
   function handleNodeClick(nodeId) {
     const node = nodes.find(n => n.id === nodeId);
     setSelectedNode(node);
   }
 
-  const lineFeatures = edges
-    .map(({ from, to, weight }) => {
-      const fromNode = nodes.find((n) => n.id === from);
-      const toNode = nodes.find((n) => n.id === to);
-      if (!fromNode || !toNode) return null;
+  const lineFeatures = displayedEdges
+  .map(({ from, to, weight }) => {
+    const fromNode = displayedNodes.find((n) => n.id === from);
+    const toNode = displayedNodes.find((n) => n.id === to);
+    if (!fromNode || !toNode) return null;
 
-      return {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: [
-            [fromNode.position.lng, fromNode.position.lat],
-            [toNode.position.lng, toNode.position.lat],
-          ],
-        },
-        properties: {
-          weight,
-          color: getColorByWeight(weight),
-        },
-      };
-    })
-    .filter(Boolean);
+    return {
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [fromNode.position.lng, fromNode.position.lat],
+          [toNode.position.lng, toNode.position.lat],
+        ],
+      },
+      properties: {
+        weight,
+        color: getColorByWeight(weight),
+      },
+    };
+  })
+  .filter(Boolean);
 
   const geojson = {
     type: "FeatureCollection",
@@ -77,6 +92,10 @@ const GraphMap = () => {
     },
   };
 
+  function handleViewOnMap(node) {
+    setFocusedNode(node);       // guardar nodo central
+    setSelectedNode(null);      // cerrar el modal
+  }
   return (
     <>
       <Map
@@ -89,7 +108,7 @@ const GraphMap = () => {
         maxZoom={8}
       >
         {/* Renderizar nodos */}
-        {nodes.map(({ id, position, code }) => (
+        {displayedNodes.map(({ id, position, code }) => (
           <Marker
             key={id}
             longitude={position.lng}
@@ -127,8 +146,17 @@ const GraphMap = () => {
           visible={!!selectedNode}
           node={selectedNode}
           onClose={() => setSelectedNode(null)}
+          onViewOnMap={handleViewOnMap}
         />
       )}
+      {focusedNode && (
+        <div style={{ position: "absolute", top: 10, left: 20, zIndex: 1 }}>
+          <button onClick={() => setFocusedNode(null)} className="btn">
+            Ver todo el mapa
+          </button>
+        </div>
+      )}
+
     </>
   );
 }
