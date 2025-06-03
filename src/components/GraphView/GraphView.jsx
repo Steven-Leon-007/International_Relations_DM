@@ -37,6 +37,7 @@ const GraphMap = () => {
   const [weightValue, setWeightValue] = useState(0);
   const [propagatedChanges, setPropagatedChanges] = useState([]);
   const [showPropagationModal, setShowPropagationModal] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const { nodes } = graphData;
 
@@ -207,8 +208,14 @@ const GraphMap = () => {
         />
       )}
 
+      <div className="title-box">
+        <h2>
+          Relaciones Internacionales
+        </h2>
+      </div>
+
       {focusedNode && (
-        <div style={{ position: "absolute", top: 10, left: 20, zIndex: 1 }}>
+        <div style={{ position: "absolute", top: 60, left: 20, zIndex: 1 }}>
           <button onClick={() => setFocusedNode(null)} className="btn">
             Regresar
           </button>
@@ -327,7 +334,43 @@ const GraphMap = () => {
         />
       )}
 
+      <div className="legend-box">
+        <strong>Fortaleza de la relación:</strong><br />
+        <div className="legend-item green">
+          <span className="dot" style={{ color: "#00cc66" }}>●</span> Muy fuerte (≥ 7)
+        </div>
+        <div className="legend-item yellow">
+          <span className="dot" style={{ color: "#ffcc00" }}>●</span> Fuerte (5–6)
+        </div>
+        <div className="legend-item orange">
+          <span className="dot" style={{ color: "#ff9900" }}>●</span> Media (1–4)
+        </div>
+        <div className="legend-item red">
+          <span className="dot" style={{ color: "#cc0000" }}>●</span> Negativa (&lt; 0)
+        </div>
+        <div className="legend-item gray">
+          <span className="dot" style={{ color: "#999999" }}>●</span> Neutra (0)
+        </div>
+      </div>
+
+      <div className={`instructions-drawer ${drawerOpen ? 'open' : ''}`}>
+        <button className="toggle-button" onClick={() => setDrawerOpen(!drawerOpen)}>
+          📝 Instrucciones
+        </button>
+        <div className="instructions-content">          
+          <ul>
+            <li>Haz clic en una bandera para ver sus relaciones.</li>
+            <li>Haz clic en una línea para modificar su peso.</li>
+            <li>Usa el botón "Regresar" para ver todos los países.</li>
+            <li>Los colores indican la intensidad de las relaciones.</li>
+            <li>Los cambios pueden afectar otras relaciones.</li>
+          </ul>
+        </div>
+      </div>
+
     </>
+
+
   );
 }
 
